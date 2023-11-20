@@ -2,6 +2,7 @@
 pub mod result;
 pub mod models;
 
+
 use yew::prelude::*;
 use crate::result::ResponseResult;
 use crate::models::*;
@@ -29,7 +30,7 @@ pub struct SubjectsProps {
 fn subject_list(props: &SubjectsProps) -> Html {
     let subjects = props.subjects.clone();
     html! {
-        <ul>
+        <ol>
             { 
                 subjects
                 .iter()
@@ -39,7 +40,7 @@ fn subject_list(props: &SubjectsProps) -> Html {
                 })
                 .collect::<Html>() 
             }
-        </ul>
+        </ol>
     }
 }
 
@@ -105,6 +106,17 @@ fn app() -> Html {
     let courses = use_state(|| Vec::new());
     let courses_cloned = courses.clone();
     let subjects = use_state(|| Vec::new());
+    let subjects_cloned = subjects.clone();
+    let default_name = "".to_string();
+
+    let course_name = match subjects_cloned.iter().last() {
+        Some(r) => {
+            *&(r as &Subject).khoa_hoc.ten_khoa_hoc.as_ref().unwrap()
+        },
+        None => {
+            &default_name
+        }
+    };
 
     use_effect_with((), move |_| {
         let courses = courses.clone();
@@ -122,12 +134,28 @@ fn app() -> Html {
     });
 
     html! {
-        <div>
-            <div>
-                <SubjectList subjects={subjects.clone()}>
-                </SubjectList>
-                <CourseList courses={courses_cloned} subjects={subjects}>
-                </CourseList>
+        <div id="root">
+            <div id="subjects">
+                <div id="course_name">
+                    <p>
+                        {format!("Khoá học: {}", course_name)}
+                    </p>
+                </div>
+                <div>
+                    <SubjectList subjects={subjects.clone()}>
+                    </SubjectList>
+                </div>
+            </div>
+            <div id="courses">
+                <div id="courses_text">
+                    <p>
+                        {"Khoá học"}
+                    </p>
+                </div>
+                <div>
+                    <CourseList courses={courses_cloned} subjects={subjects}>
+                    </CourseList>
+                </div>
             </div>
         </div>
     }

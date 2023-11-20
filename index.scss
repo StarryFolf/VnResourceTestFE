@@ -11,6 +11,12 @@
     box-shadow: 3px 4px 10px 0px #6e6969 inset;
 }
 
+#courses li {
+    width: fit-content;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 #subjects {
     height: 100%;
     width: 79%;

@@ -1,3 +1,3 @@
-You must have Rust and trunk installed to run this programm.  
-To run the programm use  
-    trunk serve --release
+You must have Rust and trunk installed to run this program.  
+To run the program use  
+    `trunk serve --release`
